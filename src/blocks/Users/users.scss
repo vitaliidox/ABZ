@@ -1,0 +1,72 @@
+@import '../../helpers/variables';
+@import '../../helpers/mixins';
+
+.users {
+  @include block-styles;
+  align-items: center;
+  background: $block-background;
+  padding-bottom: 140px;
+  padding-top: 140px;
+
+  &__title {
+    @include nunito-head;
+    margin-bottom: 50px;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 29px;
+    margin-bottom: 74px;
+  }
+
+  &__button.MuiButtonBase-root {
+    width: 120px;
+  }
+}
+
+@media (max-width: 1190px) {
+  .users {
+    padding: 140px 60px 140px;
+
+    &__card {
+      width: 282px;
+    }
+
+    &__list {
+      grid-template-columns: repeat(3, 282px);
+    }
+  }
+}
+
+@media (max-width: 935px) {
+  .users {
+    padding: 140px 32px 140px;
+
+    &__card {
+      width: 344px;
+    }
+
+    &__list {
+      grid-template-columns: repeat(2, 344px);
+      gap: 16px;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .users {
+    padding: 140px 16px 140px;
+
+    &__card {
+      width: 328px;
+    }
+  
+    &__list {
+      flex-direction: column;
+      grid-template-columns: 328px;
+      gap: 20px;
+    }
+  }
+}

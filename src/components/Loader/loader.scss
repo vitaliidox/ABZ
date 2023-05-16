@@ -1,0 +1,42 @@
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 370px;
+  height: 254px;
+
+  &__spinner {
+    width: 48px;
+    height: 48px;
+    background-image: url('../../assets/Preloader.svg');
+    background-position: center;
+    animation: spinner 1.5s linear infinite;
+  }
+}
+
+@media (max-width: 1190px) {
+  .loader {
+    width: 282px;
+  }
+}
+
+@media (max-width: 1020px) {
+  .loader {
+    width: 344px;
+  }
+}
+
+@media (max-width: 700px) {
+  .loader {
+    width: 328px;
+  }
+}

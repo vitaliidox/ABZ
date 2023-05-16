@@ -1,0 +1,130 @@
+@import '../../helpers/mixins';
+@import '../../helpers/variables';
+
+.header {
+  @include block-styles;
+  box-sizing: border-box;
+  background: $block-background;
+
+  &__wrapper-nav {
+    display: flex;
+    height: 60px;
+    padding: 13px 0;
+    justify-content: space-between;
+    box-sizing: border-box;
+
+    background: #fff;
+  }
+
+  &__logo {
+    width: 104px;
+    height: 26px;
+  }
+
+  &__logo-link {
+    height: min-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__navigation > :first-of-type {
+    margin-right: 10px;
+  }
+
+  &__banner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    height: 650px;
+    max-width: 1170px;
+    padding-top: 164px;
+    box-sizing: border-box;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('../../assets/banner-img/xl.jpeg');
+    z-index: 1;
+  }
+
+  &__banner::before {
+    position: absolute;
+    content: '';
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    top: 0;
+    z-index: -1;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    padding: 0 16px;
+    max-width: 380px;
+
+    color: $light-color;
+    text-align: center;
+  }
+
+  &__title {
+    @include nunito-head;
+    margin-bottom: 21px;
+    color: $light-color;
+  }
+
+  &__description {
+    @include nunito-body;
+    margin-bottom: 36px;
+    color: $light-color;
+  }
+}
+
+@media (max-width: 1190px) {
+  .header {
+    &__wrapper-nav {
+      padding: 13px 60px;
+    }
+  
+    &__banner{
+      background-image: url('../../assets/banner-img/l.jpeg');
+    }
+  }
+}
+
+@media (max-width: 935px) {
+  .header {
+    &__wrapper-nav {
+      padding: 13px 32px;
+    }
+  
+    &__banner {
+      height: 500px;
+      background-image: url('../../assets/banner-img/m.jpeg');
+      padding-top: 89px;
+    }
+  }
+}
+
+@media (max-width: 390px) {
+  .header {
+    &__wrapper-nav {
+      padding: 13px 16px;
+    }
+  
+    &__banner {
+      background-image: url('../../assets/banner-img/s.jpeg');
+      padding-top: 40px;
+    }
+  }
+}

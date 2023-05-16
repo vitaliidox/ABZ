@@ -1,0 +1,14 @@
+body {
+  background: #E5E5E5;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  margin: auto;
+  max-width: 1170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

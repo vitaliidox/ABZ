@@ -1,0 +1,67 @@
+@import '../../helpers/mixins';
+@import '../../helpers/variables';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0;
+  padding-bottom: 100px;
+
+  @include block-styles;
+  background: $block-background;
+
+  //title text of forms block
+  &__title {
+    margin-bottom: 50px;
+    @include nunito-head;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__position {
+    margin-bottom: 11px;
+  }
+
+  &__input-file {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 50px;
+
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+
+  &__button.MuiButtonBase-root {
+    margin: auto;
+  }
+
+  &__radio-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-bottom: 47px;
+  }
+}
+
+@media (max-width: 1190px) {
+  .form {
+    padding: 0 60px 100px;
+  }
+}
+
+@media (max-width: 935px) {
+  .form {
+    padding: 0 32px 100px;
+  }
+}
+
+@media (max-width: 700px) {
+  .form {
+    padding: 0 16px 100px;
+    margin: auto;
+  }
+}

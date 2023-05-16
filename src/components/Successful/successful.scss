@@ -1,0 +1,15 @@
+@import '../../helpers/mixins';
+@import '../../helpers/variables';
+
+.successful {
+  @include block-styles;
+  height: 380px;
+  background-image: url('../../assets/success-image.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+
+  &__title {
+    @include nunito-head;
+  }
+}
+
