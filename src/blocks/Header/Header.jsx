@@ -6,27 +6,29 @@ import { Button } from "@mui/material";
 export const Header = () => {
   return (
     <header className="header">
-      <div className="header__wrapper-nav">
-        <a
-          href="/"
-          className="header__logo-link"
-        >
-          <img
-            src={Logo}
-            alt="logo"
-            className="header__logo"
-          />
-        </a>
+      <div className="header__wrapper">
+        <div className="header__wrapper-nav">
+          <a
+            href="/ABZ/"
+            className="header__logo-link"
+          >
+            <img
+              src={Logo}
+              alt="logo"
+              className="header__logo"
+            />
+          </a>
 
-        <nav className="header__navigation">
-          <Button className="button" href="#users">
-            Users
-          </Button>
+          <nav className="header__navigation">
+            <Button className="button" href="#users">
+              Users
+            </Button>
 
-          <Button className="button" href="#sign-up">
-            Sign up
-          </Button>
-        </nav>
+            <Button className="button" href="#sign-up">
+              Sign up
+            </Button>
+          </nav>
+        </div>
       </div>
       
       <section className="header__banner">

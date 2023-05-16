@@ -1,11 +1,11 @@
 import "./App.css";
-import "./helpers/styles.scss";
+import "./styles/styles.scss";
 import { useState, useMemo} from "react";
 
 import { Header } from "./blocks/Header";
 import { Users } from "./blocks/Users";
 import { Form } from "./blocks/Form";
-import { getUsers } from "./helpers/API";
+import { getUsers } from "./API";
 
 
 function App() {

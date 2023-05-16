@@ -12,7 +12,17 @@ import {
   getToken,
   postFormData,
   getUsers,
-} from "../../helpers/API";
+} from "../../API"
+import {
+  getHelperForEmail,
+  getHelperForName,
+  getHelperForPhone,
+} from "../../helpers/getHelpers";
+import {
+  validateName,
+  validatePhone,
+  validateEmail,
+} from "../../helpers/validate";
 
 export const Form = ({
   setUsersData,
@@ -68,93 +78,7 @@ export const Form = ({
   const setHelperForPhone = useCallback((arg) => {
     setHelpTextPhone(arg);
   },[])
-
-
-  const validateName = useCallback(() => {
-    return (
-      name.length >= 2
-      && name.length <= 60
-      && /^[A-Za-z]{1}[A-Za-z\d]/.test(name)
-    );
-  }, [name]);
-
-  const validateEmail = useCallback(() => {
-    const emailRegexRFC2822 = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-    return emailRegexRFC2822.test(email);
-  }, [email]);
-
-  const validatePhone = useCallback(() => {
-    const phoneRegexRFC2822 = /^0\s*\d\s*\d\s*\d\s*\d\s*\d\s*\d\s*\d\s*\d\s*\d$/;
-    
-    return phoneRegexRFC2822.test(phone);
-  }, [phone]);
   
-
-  const getHelperForName = useCallback(() => {
-    if (!validateName()) {
-      if (name.length > 60) {
-        setHelperForName("The name is too long");
-        return;
-      } 
-      
-      if (name.length === 1) {
-        setHelperForName("The name is too short");
-        return;
-      }
-
-      setHelperForName("Enter name and surname");
-    } else {
-      setHelperForName("The name is verified");
-    }
-  },[name])
-
-  const getHelperForEmail = useCallback(() => {
-    if (!validateEmail()) {
-      if (!isVisitedEmail) {
-        setHelperForEmail("Enter Email");
-        return;
-      }
-
-      if (email.length === 0) {
-        setHelperForEmail("Enter Email");
-        return;
-      }
-      
-      setHelperForEmail("Enter valid Email");
-    } else {
-      setHelperForEmail("The Email is verified");
-    }
-  },[email])
-
-  const getHelperForPhone = useCallback(() => {
-    if (!validatePhone()) {
-      if (!isVisitedPhone) {
-        setHelperForPhone("+38 (XXX) XXX - XX - XX");
-        return;
-      }
-
-      if (/[a-zA-Z]/.test(phone)) {
-        setHelperForPhone("Enter only numbers");
-        return;
-      }
-
-      if (phone.length > 0 && phone.charAt(0) !== '0') {
-        setHelperForPhone("Start the number with '0'");
-        return;
-      }
-
-      if (phone.length !== 10 && phone.length > 0) {
-        setHelperForPhone("Wrong length numbers");
-        return;
-      }
-
-      setHelperForPhone("Enter valid Email");
-    } else {
-      setHelperForPhone("The Phone is verified");
-    }
-  },[phone])
-
   const handleBlur = useCallback((e) => {
     switch (e.target.name) {
       case "name":
@@ -169,16 +93,15 @@ export const Form = ({
     }
   }, [])
 
-
   const setSuccessVisible = useCallback((arg) => {
     setIsVisibleSuccess(arg);
   }, [])
 
   const isFormFilledOut = useCallback(() => {
     return (
-      isVisitedName && validateName()
-      && isVisitedEmail && validateEmail()
-      && isVisitedPhone && validatePhone()
+      isVisitedName && validateName(name)
+      && isVisitedEmail && validateEmail(email)
+      && isVisitedPhone && validatePhone(phone)
       && !isErrorFile && isVisitedFile
       && position
     )
@@ -194,6 +117,7 @@ export const Form = ({
     setIsVisitedFile(null);
     setIsVisitedPhone(false);
     setPosition(null);
+    setToken(null);
   },[])
 
   const getFormData = useCallback(() => {
@@ -236,7 +160,7 @@ export const Form = ({
       name: "name",
       value: name,
       setValue: handleSetName,
-      isError: isVisitedName && !validateName(),
+      isError: isVisitedName && !validateName(name),
       label: "Your name",
       helperText: helpTextName,
       setIsVisited: setIsVisitedName,
@@ -247,7 +171,7 @@ export const Form = ({
       name: "email",
       value: email,
       setValue: handleSetEmail,
-      isError: isVisitedEmail && !validateEmail(),
+      isError: isVisitedEmail && !validateEmail(email),
       label: "Email",
       helperText: helpTextEmail,
       setIsVisited: setIsVisitedEmail,
@@ -258,7 +182,7 @@ export const Form = ({
       name: 'phone',
       value: phone,
       setValue: handleSetPhone,
-      isError: isVisitedPhone && !validatePhone(),
+      isError: isVisitedPhone && !validatePhone(phone),
       label: 'Phone',
       helperText: helpTextPhone,
       setIsVisited: setIsVisitedPhone,
@@ -276,15 +200,29 @@ export const Form = ({
   }, [isFormFilledOut])
 
   useEffect(() => {
-    getHelperForName();
+    getHelperForName(
+      validateName(name),
+      name,
+      setHelperForName,
+    )
   }, [name])
 
   useEffect(() => {
-    getHelperForEmail();
+    getHelperForEmail(
+      validateEmail(email),
+      setIsVisitedEmail,
+      setHelperForEmail,
+      email,
+    )
   }, [email])
 
   useEffect(() => {
-    getHelperForPhone();
+    getHelperForPhone(
+      validatePhone(phone),
+      isVisitedPhone,
+      setHelperForPhone,
+      phone,
+    )
   }, [phone])
 
   useEffect(() => {

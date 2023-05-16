@@ -2,8 +2,10 @@ import "./users.scss";
 import Button from '@mui/material/Button';
 import { useCallback, useState } from "react";
 import { UserCard } from "../../components/UserCard";
-import { getUsers } from "../../helpers/API";
+import { getUsers } from "../../API";
 import { Loader } from "../../components/Loader/Loader";
+
+const cardsDuringLoading = [1, 1, 1, 1, 1, 1];
 
 export const Users = ({
   usersData,
@@ -15,10 +17,8 @@ export const Users = ({
   setIsLoading,
   isLoading,
 }) => {
-
   const [isError, setIsError] = useState(false);
 
-  
   const setLinksPage = useCallback((page) => {
     setPage(page);
   },[])
@@ -35,6 +35,12 @@ export const Users = ({
     .catch(() => setIsError(true))
     .finally(() => setIsLoading(false))
   }, [])
+
+  const handleClick = useCallback((e) => {
+    e.preventDefault()
+    setLinksPage((prev) => prev + 1);
+    getData(page + 1)
+  }, []);
 
   return (
     <section className="users" id="users">
@@ -54,7 +60,7 @@ export const Users = ({
           />
         ))}
 
-         {isLoading && [1,1,1,1,1,1].map((e, ind) => (
+         {isLoading && cardsDuringLoading.map((e, ind) => (
           <Loader key={e + ind} />
         ))}
       </ul>
@@ -63,11 +69,7 @@ export const Users = ({
         type="button"
         className="users__button button"
         disabled={!usersData?.links?.next_url}
-        onClick={(e) => {
-          e.preventDefault()
-          setLinksPage((prev) => prev + 1);
-          getData(page + 1)
-        }}
+        onClick={handleClick}
       >
         Show more
       </Button>
