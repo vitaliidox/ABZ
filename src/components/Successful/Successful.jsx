@@ -1,5 +1,7 @@
 import './successful.scss';
 import successImg from "../../assets/success-image.svg";
+import oopsImg from "../../assets/oops.svg";
+
 export const Successful = ({ isSuccessful }) => {
   return (
     <section className="successful">
@@ -7,10 +9,16 @@ export const Successful = ({ isSuccessful }) => {
         {isSuccessful ? "User successfully registered" : "Registration error!"}
       </h1>
 
-      {isSuccessful && (
+      {isSuccessful ? (
         <img
           className="successful__img"
           src={successImg}
+          alt="success"
+        />
+      ) : (
+        <img
+          className="successful__img"
+          src={oopsImg}
           alt="success"
         />
       )}
