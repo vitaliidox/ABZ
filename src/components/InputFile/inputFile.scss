@@ -48,9 +48,14 @@
     align-items: center;
     justify-content: start;
 
-    width: 100%;
+    // width: 90%;
+
     height: 100%;
     padding-left: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
 
     color: $border-text-color--default;
   }

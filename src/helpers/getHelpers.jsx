@@ -75,5 +75,3 @@
       setHelperForPhone("The phone is verified");
     }
   };
-
-

@@ -13,6 +13,7 @@ function App() {
   const [users, setUsers] = useState(null)
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false)
   
   useMemo(() => {
     setIsLoading(true);
@@ -22,6 +23,7 @@ function App() {
       setUsersData(data);
       setUsers([...data.users]);
     })
+    .catch(() => setIsError(true))
     .finally(() => setIsLoading(false))
   }, [])
 
@@ -29,7 +31,7 @@ function App() {
     <>
       <Header />
 
-      <Users 
+      <Users
         usersData={usersData}
         setUsersData={setUsersData}
         users={users}
@@ -38,6 +40,8 @@ function App() {
         setPage={setPage}
         setIsLoading={setIsLoading}
         isLoading={isLoading}
+        isError={isError}
+        setIsError={setIsError}
       />
 
       <Form

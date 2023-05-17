@@ -92,3 +92,9 @@
     width: 328px;
   }
 }
+
+@media (max-width: 350px) {
+  .input .MuiInputBase-root {
+    width: 88vw;
+  }
+}

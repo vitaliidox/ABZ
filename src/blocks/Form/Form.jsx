@@ -49,6 +49,7 @@ export const Form = ({
   const [positionsList, setPositionsList] = useState(null);
   const [isVisibleSuccess, setIsVisibleSuccess] = useState(false);
   const [token, setToken] = useState(null);
+  const [isSuccessful, setIsSuccesful] = useState(true);
 
   const handleSetName = useCallback((arg) => {
     setName(arg);
@@ -145,14 +146,13 @@ export const Form = ({
   }, [])
 
   const sendFormData = useCallback(() => {
-    console.log(token);
-
     postFormData(getFormData(), token)
     .then(() => {
       setSuccessVisible(true);
-      resetForms();
       getData(1);
+      resetForms();
     })
+    .catch(() => setIsSuccesful(false))
   }, [name, phone, email, position, isErrorFile, isFormFilledOut, token])
 
   const inputsData = [
@@ -244,7 +244,7 @@ export const Form = ({
 
   
   {return isVisibleSuccess ? (
-    <Successful />
+    <Successful isSuccessful={isSuccessful} />
   ) : (
     <section className="form" id="sign-up">
       <h1 className="form__title">
@@ -297,9 +297,7 @@ export const Form = ({
         <Button
           className="button form__button"
           disabled={!isFormFilledOut() && !token}
-          onClick={() => {
-            sendFormData()
-          }}
+          onClick={() => sendFormData()}
         >
           submit
         </Button>

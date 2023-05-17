@@ -1,6 +1,6 @@
 import "./users.scss";
 import Button from '@mui/material/Button';
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { UserCard } from "../../components/UserCard";
 import { getUsers } from "../../API";
 import { Loader } from "../../components/Loader/Loader";
@@ -16,8 +16,10 @@ export const Users = ({
   setPage,
   setIsLoading,
   isLoading,
+  isError,
+  setIsError,
 }) => {
-  const [isError, setIsError] = useState(false);
+
 
   const setLinksPage = useCallback((page) => {
     setPage(page);
